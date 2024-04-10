@@ -19,7 +19,7 @@ const int I2C_SCL_GPIO = 21;
 static void mpu6050_reset() {
     // Two byte reset. First byte register, second byte data
     // There are a load more options to set up the device in different ways that could be added here
-    uint8_t buf[] = {0x6B, 0x80};
+    uint8_t buf[] = {0x6B, 0x00};
     i2c_write_blocking(i2c_default, MPU_ADDRESS, buf, 2, false);
 }
 
