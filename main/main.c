@@ -10,7 +10,8 @@
 #include "hardware/i2c.h"
 #include "mpu6050.h"
 
-#include <Fusion.h>
+#include "Fusion.h"
+#define SAMPLE_PERIOD (0.01f) // replace this with actual sample period
 
 const int MPU_ADDRESS = 0x68;
 const int I2C_SDA_GPIO = 4;
@@ -59,6 +60,7 @@ static void mpu6050_read_raw(int16_t accel[3], int16_t gyro[3], int16_t *temp) {
 }
 
 void mpu6050_task(void *p) {
+    // configuracao do I2C
     i2c_init(i2c_default, 400 * 1000);
     gpio_set_function(I2C_SDA_GPIO, GPIO_FUNC_I2C);
     gpio_set_function(I2C_SCL_GPIO, GPIO_FUNC_I2C);
@@ -69,6 +71,7 @@ void mpu6050_task(void *p) {
     int16_t acceleration[3], gyro[3], temp;
 
     while(1) {
+        // leitura da MPU, sem fusao de dados
         mpu6050_read_raw(acceleration, gyro, &temp);
         printf("Acc. X = %d, Y = %d, Z = %d\n", acceleration[0], acceleration[1], acceleration[2]);
         printf("Gyro. X = %d, Y = %d, Z = %d\n", gyro[0], gyro[1], gyro[2]);
@@ -76,8 +79,6 @@ void mpu6050_task(void *p) {
 
         vTaskDelay(pdMS_TO_TICKS(10));
     }
-
-
 }
 
 int main() {
