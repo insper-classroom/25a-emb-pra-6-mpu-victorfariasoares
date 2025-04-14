@@ -1,4 +1,4 @@
-add_executable(pico_emb-emb
+add_executable(pico_emb
         main.c
 )
 
