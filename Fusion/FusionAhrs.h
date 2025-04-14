@@ -31,7 +31,7 @@ typedef struct {
 } FusionAhrsSettings;
 
 /**
- * @brief AHRS algorithm structure.  Structure members are used internally and
+ * @brief AHRS algorithm structure. Structure members are used internally and
  * must not be accessed by the application.
  */
 typedef struct {
@@ -92,6 +92,8 @@ void FusionAhrsUpdateExternalHeading(FusionAhrs *const ahrs, const FusionVector 
 FusionQuaternion FusionAhrsGetQuaternion(const FusionAhrs *const ahrs);
 
 void FusionAhrsSetQuaternion(FusionAhrs *const ahrs, const FusionQuaternion quaternion);
+
+FusionVector FusionAhrsGetGravity(const FusionAhrs *const ahrs);
 
 FusionVector FusionAhrsGetLinearAcceleration(const FusionAhrs *const ahrs);
 
